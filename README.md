@@ -9,30 +9,32 @@ A searchable, offline-friendly catalogue of **29 LIC plans**, built from LIC's o
 ```
 EasyInsure/
 ├── index.html          ← self-contained search UI and plan data
-├── 886/                ← themed plan page, served at /886/
-│   └── index.html
-├── 857/
-│   └── index.html
-├── ... (one directory per plan)
-├── plans/              ← one markdown knowledge file per plan
+├── plans/              ← everything about the plans
 │   ├── README.md       ← frontmatter schema, plan index, calculator/decision guidance
-│   ├── 886.md
-│   ├── 857.md
-│   └── ... (29 plan files)
+│   ├── 886/            ← one directory per plan, named by plan number
+│   │   ├── index.html  ← themed plan page
+│   │   └── info.md     ← source knowledge file
+│   ├── 857/
+│   │   ├── index.html
+│   │   └── info.md
+│   └── ... (29 plan directories)
+├── assets/
+│   ├── plan.css        ← shared plan-page theme
+│   └── calculator.js   ← Phase 1 calculators
 ├── LICENSE
 └── README.md           ← this file
 ```
 
 - **`index.html`** — search 29 plans by name, plan number, UIN, category, goal, age, policy term, premium, risk type, feature or flag. Cards link to the themed plan page and, where the plan is still sold, to LIC's online purchase page.
-- **`/<plan-number>/`** — a themed HTML page per plan, rendered from the plan's markdown. The route is just the plan number (for example `/886/`).
-- **`plans/<number>.md`** — a dedicated markdown file per plan. YAML frontmatter is machine-readable; the body documents eligibility, premiums, benefits, charges, exclusions, surrender/loan/revival rules, tax notes, decision tags and calculation formulas.
+- **`plans/<plan-number>/`** — one directory per plan: `index.html` is the themed HTML page and `info.md` is the source markdown. The route is `/plans/<plan-number>/` (for example `/plans/886/`).
+- **`plans/<plan-number>/info.md`** — a dedicated markdown file per plan. YAML frontmatter is machine-readable; the body documents eligibility, premiums, benefits, charges, exclusions, surrender/loan/revival rules, tax notes, decision tags and calculation formulas.
 - **`plans/README.md`** — schema reference, full plan index, and guidance for using the records in premium/outcome calculations and the decision engine.
 
 ### Routes
 
 - `/` or `index.html` — the search page.
-- `/<plan-number>/` — the themed plan page, for example `/886/`. On a static server this resolves to `<plan-number>/index.html`.
-- When opened from `file://`, the page links automatically fall back to `<plan-number>/index.html` so the site still works without a server.
+- `/plans/<plan-number>/` — the themed plan page, for example `/plans/886/`. On a static server this resolves to `plans/<plan-number>/index.html`.
+- When opened from `file://`, the page links automatically fall back to `plans/<plan-number>/index.html` so the site still works without a server.
 
 ### Coverage at a glance
 
@@ -88,6 +90,20 @@ These examples are also available as clickable chips under the search box. You c
 - **Product traits:** `joint life`, `couple`, `child`, `education`, `women`, `cancer`, `hospital cash`, `immediate annuity`, `deferred annuity`.
 - **Status:** `withdrawn`, `discontinued`.
 
+## Calculators (Phase 1)
+
+Plan pages with enough published data include an **illustrative calculator** section. These are estimates, not quotations.
+
+| Calculator | Plans | What it does |
+|---|---|---|
+| **ULIP projection** | 749, 752, 867, 873, 886 | Projects fund value, maturity/death benefit and surrender value from premium, term/PPT, channel and an assumed gross return, using published allocation, mortality, administration, FMC, guaranteed-addition and discontinuance charges. |
+| **Published premium lookup** | 751, 760, 771, 880, 883, 907, 908 | Looks up the published sample premium for the ages/terms/options printed in LIC's brochure and scales it for the chosen sum assured/IDB. No interpolation outside published combinations. |
+| **GSV estimate** | 758, 862, 771, 879, 883, 892 | Computes the Guaranteed Surrender Value (GSV) from LIC's published factor tables or formulas. Actual payout is `max(GSV, SSV)`; SSV is not computable from public data. |
+
+The ULIP model is annual rather than monthly; in checks against LIC's published sample illustrations it was within roughly 1% of the stated fund values. Premium lookup shows the base sample premium only — mode/high-BSA rebates, taxes, underwriting loadings and rider premiums are excluded. All calculators link to LIC's official quote flow for an exact figure.
+
+Not yet covered in Phase 1: Plan 888's GSV (its GA surrender factor is not in the extracted text), and most traditional plans outside the published-table set. Those can be added in Phase 2 after extracting the remaining factor tables from the brochure PDFs.
+
 ## Plan data and provenance
 
 All plan facts were extracted from documents published on [licindia.in](https://licindia.in):
@@ -116,17 +132,17 @@ The markdown frontmatter is designed to be parsed with any YAML library. See [`p
 - a suggested filtering/ranking flow for the decision engine;
 - guidance on premium and maturity/death-benefit calculations, including which fields are exact versus illustrative.
 
-The search page in `index.html` embeds a snapshot of that frontmatter, and the `/<plan-number>/` pages are rendered from the markdown bodies. If you edit the plan markdown files, regenerate both the embedded search data and the affected plan page so everything stays in sync.
+The search page in `index.html` embeds a snapshot of that frontmatter, and the `plans/<plan-number>/index.html` pages are rendered from the markdown bodies. If you edit `plans/<plan-number>/info.md`, regenerate both the embedded search data and the affected plan page so everything stays in sync.
 
 ## Deploying to GitHub Pages
 
-The site is ready to publish as a static GitHub Pages site. All internal links are relative, so it works under the project-site subpath (`/EasyInsure/`). Plan pages resolve as `https://<user>.github.io/EasyInsure/<plan-number>/` (for example `/886/`).
+The site is ready to publish as a static GitHub Pages site. All internal links are relative, so it works under the project-site subpath (`/EasyInsure/`). Plan pages resolve as `https://<user>.github.io/EasyInsure/plans/<plan-number>/` (for example `/plans/886/`).
 
 1. Commit and push the repository.
 2. In GitHub: **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, then select the default branch and the **root** folder.
 3. Wait for the Pages build to finish.
 
-The included `.nojekyll` file disables Jekyll processing so the numbered plan directories and the raw `plans/*.md` files are served unchanged.
+The included `.nojekyll` file disables Jekyll processing so the plan directories and the raw `plans/<plan-number>/info.md` files are served unchanged.
 
 ## License
 
