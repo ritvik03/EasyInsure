@@ -13,12 +13,12 @@ One structured markdown file per LIC plan, built from LIC's official Customer In
 ```
 plans/
 ├── README.md                      ← this file
-├── 886-protection-plus.md         ← one file per plan
-├── 749-nivesh-plus.md
+├── 886.md                         ← one file per plan, named by plan number
+├── 749.md
 └── ...
 ```
 
-File naming: `<plan-number>-<kebab-case-plan-name>.md`. Plan numbers match the cards in `lic_plans.html`.
+File naming: `<plan-number>.md`. Plan numbers match the routes and cards in the site (`/<plan-number>/` and `index.html`).
 
 ## Frontmatter schema
 
@@ -83,35 +83,35 @@ The tags are deliberately normalized, but they are still editorial judgements. K
 
 | Plan | Name | Category | Status | Entry age | Policy term | PPT | Primary goals |
 |---:|---|---|---|---|---|---|---|
-| 859 | [LIC's Saral Jeevan Bima](859-saral-jeevan-bima.md) | Term | Active | 18–65 | 5–40y | 5–40y | protection |
-| 876 | [LIC's Digi Term](876-digi-term.md) | Term | Active | 18–45 | 15–40y | 10–40y | protection |
-| 878 | [LIC's Digi Credit Life](878-digi-credit-life.md) | Term | Active | 18–45 | 5–30y | 5–15y | protection |
-| 887 | [LIC's Bima Kavach](887-bima-kavach.md) | Term | Active | 18–65 | 10–82y | 5–82y | protection |
-| 894 | [LIC's Jeevan Raksha](894-jeevan-raksha.md) | Term | Active | 18–45 | 15–42y | 10–42y | protection |
-| 954 | [LIC's New Tech-Term](954-new-tech-term.md) | Term | Active | 18–65 | 10–40y | 5–40y | protection |
-| 760 | [LIC's Bima Jyoti](760-bima-jyoti.md) | Endowment | Withdrawn | 0.08–60 | 15–20y | 10–15y | savings, protection |
-| 770 | [LIC's Bima Platinum](770-bima-platinum.md) | Endowment | Active | 0–55 | 17–40y | 7–18y | savings, protection, retirement |
-| 774 | [LIC's Amritbaal](774-amritbaal.md) | Endowment | Active | 0–13 | 5–25y | 5–7y | savings, protection |
-| 881 | [LIC's Bima Lakshmi](881-bima-lakshmi.md) | Endowment | Active | 18–50 | 25y | 7–15y | savings, protection |
-| 888 | [LIC's New Jeevan Sathi - Single Premium](888-new-jeevan-sathi-single-premium.md) | Endowment | Active | 18–60 | 10/15/20/25y | — | savings, protection |
-| 889 | [LIC's New Jeevan Sathi - Limited Premium](889-new-jeevan-sathi-limited-premium.md) | Endowment | Active | 18–50 | 10/15/20/25y | 5–15y | savings, protection |
-| 912 | [LIC's Nav Jeevan Shree](912-nav-jeevan-shree.md) | Endowment | Active | 0–60 | 10–20y | 6–15y | savings, protection |
-| 771 | [LIC's Jeevan Utsav](771-jeevan-utsav.md) | WholeLife | Active | 0–65 | Whole life | 5–16y | savings, retirement, protection |
-| 883 | [LIC's Jeevan Utsav Single Premium](883-jeevan-utsav-single-premium.md) | WholeLife | Active | 0–65 | Whole life | — | savings, retirement, protection |
-| 751 | [LIC's Micro Bachat](751-micro-bachat.md) | Micro | Active | 18–55 | 10–15y | 10–15y | savings, protection |
-| 880 | [LIC's Jan Suraksha](880-jan-suraksha.md) | Micro | Active | 18–55 | 12–20y | 7–15y | savings, protection |
-| 907 | [LIC's Health Shield](907-health-shield.md) | Health | Active | 18–65 | 15y | 15y | health, protection |
-| 908 | [LIC's New Cancer Cover](908-new-cancer-cover.md) | Health | Active | 18–65 | 10–15y | 10–15y | health, protection |
-| 758 | [LIC's New Jeevan Shanti](758-new-jeevan-shanti.md) | Annuity | Active | 30–79 | Deferred annuity | — | retirement, savings |
-| 857 | [LIC's Jeevan Akshay-VII](857-jeevan-akshay-vii.md) | Annuity | Active | 25–100 | Life annuity | — | retirement |
-| 862 | [LIC's Saral Pension](862-saral-pension.md) | Annuity | Active | 40–80 | Life annuity | — | retirement |
-| 879 | [LIC's Smart Pension](879-smart-pension.md) | Annuity | Active | 18–100 | Life annuity | — | retirement |
-| 892 | [LIC's New Jeevan Dhara II](892-new-jeevan-dhara-ii.md) | Annuity | Active | 18+ | Deferred annuity | — | retirement, savings |
-| 749 | [LIC's Nivesh Plus](749-nivesh-plus.md) | ULIP | Active | 0.25–70 | 10–25y | — | savings, protection, market_linked_growth |
-| 752 | [LIC's SIIP](752-siip.md) | ULIP | Active | 0.08–65 | 10–25y | 10–25y | savings, protection, market_linked_growth |
-| 867 | [LIC's New Pension Plus](867-new-pension-plus.md) | ULIP | Active | 25–75 | 10–42y | 10–42y | retirement, savings, market_linked_growth |
-| 873 | [LIC's Index Plus](873-index-plus.md) | ULIP | Active | 0.25–60 | 10–25y | 10–25y | savings, protection, market_linked_growth |
-| 886 | [LIC's Protection Plus](886-protection-plus.md) | ULIP | Active | 18–65 | 10/15/20/25y | 5–15y | savings, protection, market_linked_growth |
+| 859 | [LIC's Saral Jeevan Bima](859.md) | Term | Active | 18–65 | 5–40y | 5–40y | protection |
+| 876 | [LIC's Digi Term](876.md) | Term | Active | 18–45 | 15–40y | 10–40y | protection |
+| 878 | [LIC's Digi Credit Life](878.md) | Term | Active | 18–45 | 5–30y | 5–15y | protection |
+| 887 | [LIC's Bima Kavach](887.md) | Term | Active | 18–65 | 10–82y | 5–82y | protection |
+| 894 | [LIC's Jeevan Raksha](894.md) | Term | Active | 18–45 | 15–42y | 10–42y | protection |
+| 954 | [LIC's New Tech-Term](954.md) | Term | Active | 18–65 | 10–40y | 5–40y | protection |
+| 760 | [LIC's Bima Jyoti](760.md) | Endowment | Withdrawn | 0.08–60 | 15–20y | 10–15y | savings, protection |
+| 770 | [LIC's Bima Platinum](770.md) | Endowment | Active | 0–55 | 17–40y | 7–18y | savings, protection, retirement |
+| 774 | [LIC's Amritbaal](774.md) | Endowment | Active | 0–13 | 5–25y | 5–7y | savings, protection |
+| 881 | [LIC's Bima Lakshmi](881.md) | Endowment | Active | 18–50 | 25y | 7–15y | savings, protection |
+| 888 | [LIC's New Jeevan Sathi - Single Premium](888.md) | Endowment | Active | 18–60 | 10/15/20/25y | — | savings, protection |
+| 889 | [LIC's New Jeevan Sathi - Limited Premium](889.md) | Endowment | Active | 18–50 | 10/15/20/25y | 5–15y | savings, protection |
+| 912 | [LIC's Nav Jeevan Shree](912.md) | Endowment | Active | 0–60 | 10–20y | 6–15y | savings, protection |
+| 771 | [LIC's Jeevan Utsav](771.md) | WholeLife | Active | 0–65 | Whole life | 5–16y | savings, retirement, protection |
+| 883 | [LIC's Jeevan Utsav Single Premium](883.md) | WholeLife | Active | 0–65 | Whole life | — | savings, retirement, protection |
+| 751 | [LIC's Micro Bachat](751.md) | Micro | Active | 18–55 | 10–15y | 10–15y | savings, protection |
+| 880 | [LIC's Jan Suraksha](880.md) | Micro | Active | 18–55 | 12–20y | 7–15y | savings, protection |
+| 907 | [LIC's Health Shield](907.md) | Health | Active | 18–65 | 15y | 15y | health, protection |
+| 908 | [LIC's New Cancer Cover](908.md) | Health | Active | 18–65 | 10–15y | 10–15y | health, protection |
+| 758 | [LIC's New Jeevan Shanti](758.md) | Annuity | Active | 30–79 | Deferred annuity | — | retirement, savings |
+| 857 | [LIC's Jeevan Akshay-VII](857.md) | Annuity | Active | 25–100 | Life annuity | — | retirement |
+| 862 | [LIC's Saral Pension](862.md) | Annuity | Active | 40–80 | Life annuity | — | retirement |
+| 879 | [LIC's Smart Pension](879.md) | Annuity | Active | 18–100 | Life annuity | — | retirement |
+| 892 | [LIC's New Jeevan Dhara II](892.md) | Annuity | Active | 18+ | Deferred annuity | — | retirement, savings |
+| 749 | [LIC's Nivesh Plus](749.md) | ULIP | Active | 0.25–70 | 10–25y | — | savings, protection, market_linked_growth |
+| 752 | [LIC's SIIP](752.md) | ULIP | Active | 0.08–65 | 10–25y | 10–25y | savings, protection, market_linked_growth |
+| 867 | [LIC's New Pension Plus](867.md) | ULIP | Active | 25–75 | 10–42y | 10–42y | retirement, savings, market_linked_growth |
+| 873 | [LIC's Index Plus](873.md) | ULIP | Active | 0.25–60 | 10–25y | 10–25y | savings, protection, market_linked_growth |
+| 886 | [LIC's Protection Plus](886.md) | ULIP | Active | 18–65 | 10/15/20/25y | 5–15y | savings, protection, market_linked_growth |
 
 ## Caveats
 

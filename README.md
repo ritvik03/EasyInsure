@@ -2,25 +2,37 @@
 
 A searchable, offline-friendly catalogue of **29 LIC plans**, built from LIC's official Customer Information Sheets, sales brochures and policy documents. It combines a fast search UI with a structured markdown knowledge base that can drive premium calculators and a plan-selection decision engine.
 
-**Open [`index.html`](index.html) in any modern browser.** No server, build step or network connection is required — the plan data and search logic are embedded in the page.
+**Open [`index.html`](index.html) in any modern browser.** No server or build step is required — the plan data and search logic are embedded in the page. The only remote asset is the LIC logo in the header.
 
 ## What is in this repository
 
 ```
 EasyInsure/
 ├── index.html          ← self-contained search UI and plan data
+├── 886/                ← themed plan page, served at /886/
+│   └── index.html
+├── 857/
+│   └── index.html
+├── ... (one directory per plan)
 ├── plans/              ← one markdown knowledge file per plan
 │   ├── README.md       ← frontmatter schema, plan index, calculator/decision guidance
-│   ├── 886-protection-plus.md
-│   ├── 857-jeevan-akshay-vii.md
+│   ├── 886.md
+│   ├── 857.md
 │   └── ... (29 plan files)
 ├── LICENSE
 └── README.md           ← this file
 ```
 
-- **`index.html`** — search 29 plans by name, plan number, UIN, category, goal, age, policy term, premium, risk type, feature or flag. Cards link to the full plan markdown and, where the plan is still sold, to LIC's online purchase page.
-- **`plans/<number>-<slug>.md`** — a dedicated file per plan. YAML frontmatter is machine-readable; the body documents eligibility, premiums, benefits, charges, exclusions, surrender/loan/revival rules, tax notes, decision tags and calculation formulas.
+- **`index.html`** — search 29 plans by name, plan number, UIN, category, goal, age, policy term, premium, risk type, feature or flag. Cards link to the themed plan page and, where the plan is still sold, to LIC's online purchase page.
+- **`/<plan-number>/`** — a themed HTML page per plan, rendered from the plan's markdown. The route is just the plan number (for example `/886/`).
+- **`plans/<number>.md`** — a dedicated markdown file per plan. YAML frontmatter is machine-readable; the body documents eligibility, premiums, benefits, charges, exclusions, surrender/loan/revival rules, tax notes, decision tags and calculation formulas.
 - **`plans/README.md`** — schema reference, full plan index, and guidance for using the records in premium/outcome calculations and the decision engine.
+
+### Routes
+
+- `/` or `index.html` — the search page.
+- `/<plan-number>/` — the themed plan page, for example `/886/`. On a static server this resolves to `<plan-number>/index.html`.
+- When opened from `file://`, the page links automatically fall back to `<plan-number>/index.html` so the site still works without a server.
 
 ### Coverage at a glance
 
@@ -104,7 +116,17 @@ The markdown frontmatter is designed to be parsed with any YAML library. See [`p
 - a suggested filtering/ranking flow for the decision engine;
 - guidance on premium and maturity/death-benefit calculations, including which fields are exact versus illustrative.
 
-The search page in `index.html` embeds a snapshot of that frontmatter for offline use. If you edit the plan markdown files, refresh the embedded data so the search stays in sync.
+The search page in `index.html` embeds a snapshot of that frontmatter, and the `/<plan-number>/` pages are rendered from the markdown bodies. If you edit the plan markdown files, regenerate both the embedded search data and the affected plan page so everything stays in sync.
+
+## Deploying to GitHub Pages
+
+The site is ready to publish as a static GitHub Pages site. All internal links are relative, so it works under the project-site subpath (`/EasyInsure/`). Plan pages resolve as `https://<user>.github.io/EasyInsure/<plan-number>/` (for example `/886/`).
+
+1. Commit and push the repository.
+2. In GitHub: **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, then select the default branch and the **root** folder.
+3. Wait for the Pages build to finish.
+
+The included `.nojekyll` file disables Jekyll processing so the numbered plan directories and the raw `plans/*.md` files are served unchanged.
 
 ## License
 
