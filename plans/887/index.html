@@ -35,10 +35,21 @@
     <p class="plan-summary">A non-participating pure term plan for large covers of ₹2 crore and above, with level or increasing death benefit, cover up to age 100, an optional life-stage increase and an optional accident rider.</p>
     
     <div class="hero-actions">
-      
+      <a class="btn ghost" href="#calculator">Open calculator</a>
       <a class="btn primary" href="https://d2conline.licindia.in/eSales/liconline/setprop?plan=887" target="_blank" rel="noopener noreferrer">Buy on LIC</a>
       <a class="btn ghost" href="../../index.html">Back to search</a>
     </div>
+  </section>
+
+  <section class="calc-section" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <div>
+        <h2 id="calc-title">Calculators</h2>
+        <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
+      </div>
+      <span class="calc-badge">Phase 1 + 2</span>
+    </div>
+    <div id="plan-calculator"></div>
   </section>
 
   <article class="plan-content cat-Term">
@@ -591,6 +602,7 @@ URV              = per Policy Document Part D Condition 4
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-
+<script>window.PLAN_CALC = {"tabs":[{"id":"premium","type":"premium","title":"Premium lookup","config":{"engine":"premium_rows","fields":[{"id":"age","label":"Age at entry","type":"number","default":30,"min":20,"max":40,"step":1},{"id":"option","label":"Death benefit option","type":"select","default":"I","options":[{"value":"I","label":"Option I — Level"},{"value":"II","label":"Option II — Increasing"}]},{"id":"pptType","label":"Premium paying term","type":"select","default":"regular","options":[{"value":"regular","label":"Regular premium"},{"value":"limited_ppt_15","label":"Limited PPT 15"},{"value":"limited_ppt_10","label":"Limited PPT 10"},{"value":"limited_ppt_5","label":"Limited PPT 5"},{"value":"single","label":"Single premium"}]}],"amount":{"label":"Basic Sum Assured (₹)","default":20000000,"min":1000,"step":1000},"base":20000000,"rows":[{"values":{"age":20,"option":"I","pptType":"regular"},"value":12600},{"values":{"age":20,"option":"I","pptType":"limited_ppt_15"},"value":14800},{"values":{"age":20,"option":"I","pptType":"limited_ppt_10"},"value":19200},{"values":{"age":20,"option":"I","pptType":"limited_ppt_5"},"value":33000},{"values":{"age":20,"option":"I","pptType":"single"},"value":134600},{"values":{"age":30,"option":"I","pptType":"regular"},"value":19000},{"values":{"age":30,"option":"I","pptType":"limited_ppt_15"},"value":22200},{"values":{"age":30,"option":"I","pptType":"limited_ppt_10"},"value":28800},{"values":{"age":30,"option":"I","pptType":"limited_ppt_5"},"value":50000},{"values":{"age":30,"option":"I","pptType":"single"},"value":204800},{"values":{"age":40,"option":"I","pptType":"regular"},"value":43600},{"values":{"age":40,"option":"I","pptType":"limited_ppt_15"},"value":50800},{"values":{"age":40,"option":"I","pptType":"limited_ppt_10"},"value":66600},{"values":{"age":40,"option":"I","pptType":"limited_ppt_5"},"value":115600},{"values":{"age":40,"option":"I","pptType":"single"},"value":475800},{"values":{"age":20,"option":"II","pptType":"regular"},"value":17200},{"values":{"age":20,"option":"II","pptType":"limited_ppt_15"},"value":20000},{"values":{"age":20,"option":"II","pptType":"limited_ppt_10"},"value":26200},{"values":{"age":20,"option":"II","pptType":"limited_ppt_5"},"value":45400},{"values":{"age":20,"option":"II","pptType":"single"},"value":185600},{"values":{"age":30,"option":"II","pptType":"regular"},"value":28200},{"values":{"age":30,"option":"II","pptType":"limited_ppt_15"},"value":33000},{"values":{"age":30,"option":"II","pptType":"limited_ppt_10"},"value":43200},{"values":{"age":30,"option":"II","pptType":"limited_ppt_5"},"value":75000},{"values":{"age":30,"option":"II","pptType":"single"},"value":307800},{"values":{"age":40,"option":"II","pptType":"regular"},"value":68600},{"values":{"age":40,"option":"II","pptType":"limited_ppt_15"},"value":80200},{"values":{"age":40,"option":"II","pptType":"limited_ppt_10"},"value":105400},{"values":{"age":40,"option":"II","pptType":"limited_ppt_5"},"value":183200},{"values":{"age":40,"option":"II","pptType":"single"},"value":754800}],"premiumType":"Yearly premium / single premium","fixed":["Policy term 20 years","Non-smoker male standard life","Offline/online base rates"],"note":"Published sample premium for Bima Kavach, before rebates, taxes and rider premiums."}}]};</script>
+<script src="../../assets/calculator.js"></script>
 </body>
 </html>

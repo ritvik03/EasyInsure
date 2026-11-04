@@ -90,19 +90,20 @@ These examples are also available as clickable chips under the search box. You c
 - **Product traits:** `joint life`, `couple`, `child`, `education`, `women`, `cancer`, `hospital cash`, `immediate annuity`, `deferred annuity`.
 - **Status:** `withdrawn`, `discontinued`.
 
-## Calculators (Phase 1)
+## Calculators (Phase 1 + Phase 2)
 
-Plan pages with enough published data include an **illustrative calculator** section. These are estimates, not quotations.
+Every plan page now has at least one **illustrative calculator**. These are estimates, not quotations.
 
 | Calculator | Plans | What it does |
 |---|---|---|
 | **ULIP projection** | 749, 752, 867, 873, 886 | Projects fund value, maturity/death benefit and surrender value from premium, term/PPT, channel and an assumed gross return, using published allocation, mortality, administration, FMC, guaranteed-addition and discontinuance charges. |
-| **Published premium lookup** | 751, 760, 771, 880, 883, 907, 908 | Looks up the published sample premium for the ages/terms/options printed in LIC's brochure and scales it for the chosen sum assured/IDB. No interpolation outside published combinations. |
-| **GSV estimate** | 758, 862, 771, 879, 883, 892 | Computes the Guaranteed Surrender Value (GSV) from LIC's published factor tables or formulas. Actual payout is `max(GSV, SSV)`; SSV is not computable from public data. |
+| **Published premium lookup** | 751, 760, 770, 771, 774, 859, 876, 878, 880, 881, 883, 887, 888, 889, 894, 907, 908, 912, 954 | Looks up the published sample premium for the ages, terms, payment types and options printed in LIC's brochure, scales it for the chosen sum assured/IDB, and interpolates **between published ages** when needed. Interpolated results are explicitly labelled. |
+| **GSV estimate** | 751, 758, 760, 771, 862, 879, 880, 883, 888, 892 | Computes the Guaranteed Surrender Value (GSV) from LIC's published factor tables or formulas. Actual payout is `max(GSV, SSV)`; SSV is not computable from public data. |
+| **Annuity illustration** | 857 | Scales the published sample annual annuity for the selected annuity option and purchase price. The published illustration is at age 60, yearly mode; actual rates vary. |
 
-The ULIP model is annual rather than monthly; in checks against LIC's published sample illustrations it was within roughly 1% of the stated fund values. Premium lookup shows the base sample premium only — mode/high-BSA rebates, taxes, underwriting loadings and rider premiums are excluded. All calculators link to LIC's official quote flow for an exact figure.
+The ULIP model is annual rather than monthly; in checks against LIC's published sample illustrations (749, 752, 867, 873) it was within roughly 1% of the stated fund values. Premium lookup shows the base sample premium only — mode/high-BSA rebates, taxes, underwriting loadings and rider premiums are excluded. Interpolation is a convenience, not an actuarial rate. All calculators link to LIC's official quote flow for an exact figure.
 
-Not yet covered in Phase 1: Plan 888's GSV (its GA surrender factor is not in the extracted text), and most traditional plans outside the published-table set. Those can be added in Phase 2 after extracting the remaining factor tables from the brochure PDFs.
+Limitations: SSV is not computed anywhere. GSV calculators cover only plans whose complete factor tables could be extracted; plans 770, 774, 881, 889 and 912 currently have premium lookups but no GSV tab. Plan 859 and 774 use the published sample tables only, and 857's annuity illustration is a single published age/option sample.
 
 ## Plan data and provenance
 

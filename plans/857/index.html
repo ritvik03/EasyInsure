@@ -35,10 +35,21 @@
     <p class="plan-summary">A single-premium immediate annuity with 10 payout options covering life-only, guaranteed-period, return-of-purchase-price, 3% increasing and joint-life annuities.</p>
     
     <div class="hero-actions">
-      
+      <a class="btn ghost" href="#calculator">Open calculator</a>
       <a class="btn primary" href="https://d2conline.licindia.in/eSales/liconline/setprop?plan=857" target="_blank" rel="noopener noreferrer">Buy on LIC</a>
       <a class="btn ghost" href="../../index.html">Back to search</a>
     </div>
+  </section>
+
+  <section class="calc-section" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <div>
+        <h2 id="calc-title">Calculators</h2>
+        <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
+      </div>
+      <span class="calc-badge">Phase 1 + 2</span>
+    </div>
+    <div id="plan-calculator"></div>
   </section>
 
   <article class="plan-content cat-Annuity">
@@ -467,6 +478,7 @@ Maximum loan             = min(0.80 × surrender_value, 0.50 × annual_annuity /
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-
+<script>window.PLAN_CALC = {"tabs":[{"id":"annuity","type":"annuity","title":"Annuity illustration","config":{"engine":"annuity_illustration","base":1000000,"rows":[{"values":{"option":"A"},"value":86100},{"values":{"option":"B"},"value":85500},{"values":{"option":"C"},"value":84000},{"values":{"option":"D"},"value":81800},{"values":{"option":"E"},"value":79200},{"values":{"option":"F"},"value":64000},{"values":{"option":"G"},"value":68700},{"values":{"option":"H"},"value":79600},{"values":{"option":"I"},"value":74000},{"values":{"option":"J"},"value":63300}],"defaultOption":"A","defaultPurchase":1000000,"optionLabel":"Annuity option","optionLabels":{"A":"A — Life annuity","B":"B — 5-year guaranteed","C":"C — 10-year guaranteed","D":"D — 15-year guaranteed","E":"E — 20-year guaranteed","F":"F — Life with return of purchase price","G":"G — 3% increasing annuity","H":"H — Joint life, 50% to survivor","I":"I — Joint life, 100% to survivor","J":"J — Joint life, 100% + return of purchase price"},"note":"Published sample annual annuity for a purchase price of ₹10,00,000 at age 60, yearly mode, before incentives and taxes. Actual rates vary by age, option, mode and purchase price; LIC quotes the exact rate."}}]};</script>
+<script src="../../assets/calculator.js"></script>
 </body>
 </html>

@@ -35,10 +35,21 @@
     <p class="plan-summary">A non-participating child endowment that accepts single or limited premiums, guarantees ₹80 per ₹1,000 of Basic Sum Assured each year, and pays the Basic Sum Assured plus guaranteed additions when the child reaches the chosen maturity age of 18-25.</p>
     
     <div class="hero-actions">
-      
+      <a class="btn ghost" href="#calculator">Open calculator</a>
       <a class="btn primary" href="https://d2conline.licindia.in/eSales/liconline/setprop?plan=774" target="_blank" rel="noopener noreferrer">Buy on LIC</a>
       <a class="btn ghost" href="../../index.html">Back to search</a>
     </div>
+  </section>
+
+  <section class="calc-section" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <div>
+        <h2 id="calc-title">Calculators</h2>
+        <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
+      </div>
+      <span class="calc-badge">Phase 1 + 2</span>
+    </div>
+    <div id="plan-calculator"></div>
   </section>
 
   <article class="plan-content cat-Endowment">
@@ -341,6 +352,7 @@ Surrender Value (limited)      = max(total premiums paid × GSV factor
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-
+<script>window.PLAN_CALC = {"tabs":[{"id":"limited","type":"premium","title":"Limited premium lookup","config":{"engine":"premium_rows","fields":[{"id":"option","label":"Death benefit option","type":"select","default":"I","options":[{"value":"I","label":"Option I"},{"value":"II","label":"Option II"}]},{"id":"ppt","label":"Premium paying term","type":"select","default":5,"options":[{"value":5,"label":"5 years"},{"value":6,"label":"6 years"},{"value":7,"label":"7 years"}]}],"amount":{"label":"Basic Sum Assured (₹)","default":500000,"min":1000,"step":1000},"base":500000,"rows":[{"values":{"option":"I","ppt":5},"value":99625},{"values":{"option":"II","ppt":5},"value":100100},{"values":{"option":"I","ppt":6},"value":84275},{"values":{"option":"II","ppt":6},"value":84625},{"values":{"option":"I","ppt":7},"value":73625},{"values":{"option":"II","ppt":7},"value":73900}],"premiumType":"Yearly premium","fixed":["Age 5","Policy term 20 years","Offline sale, standard life"],"note":"Published sample premium for BSA ₹5,00,000, before rebates, taxes and rider premiums."}},{"id":"single","type":"premium","title":"Single premium lookup","config":{"engine":"premium_rows","fields":[{"id":"option","label":"Death benefit option","type":"select","default":"III","options":[{"value":"III","label":"Option III"},{"value":"IV","label":"Option IV"}]}],"amount":{"label":"Basic Sum Assured (₹)","default":500000,"min":1000,"step":1000},"base":500000,"rows":[{"values":{"option":"III"},"value":389225},{"values":{"option":"IV"},"value":412600}],"premiumType":"Single premium","fixed":["Age 5","Policy term 20 years","Offline sale, standard life"],"note":"Published sample premium for BSA ₹5,00,000, before rebates, taxes and rider premiums."}}]};</script>
+<script src="../../assets/calculator.js"></script>
 </body>
 </html>

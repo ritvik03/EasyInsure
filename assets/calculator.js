@@ -104,6 +104,12 @@
     }
     return table[key] || 0;
   }
+  function matrixFactor(table, term, year) {
+    if (!table) return 0;
+    var byYear = table[String(term)];
+    if (!byYear) return 0;
+    return factorAt(byYear, year);
+  }
   function allocationFor(cfg, y, premium, channel, single) {
     var list = single ? (cfg.allocationSingle || cfg.allocation) : (cfg.allocationRegular || cfg.allocation);
     if (!list) return 0;
@@ -265,6 +271,100 @@
     return wrap;
   }
 
+  function renderPremiumRows(tab) {
+    var cfg = tab.config;
+    var wrap = el("div", "calc-body");
+    var grid = el("div", "calc-grid");
+    var result = el("div", "calc-result");
+    wrap.appendChild(el("p", "calc-intro", "Look up a premium from LIC's published sample table. Ages between published rows are interpolated and labelled as estimates."));
+
+    cfg.fields.forEach(function (f) {
+      var control;
+      if (f.type === "number") {
+        control = numberField(f.label, f.default, { min: f.min, max: f.max, step: f.step });
+      } else {
+        control = selectField(f.label, f.options.map(function (o) {
+          return { value: o.value, label: o.label };
+        }), f.default);
+      }
+      grid.appendChild(markControl(control, f.id));
+    });
+    grid.appendChild(markControl(numberField(cfg.amount.label, cfg.amount.default, {
+      min: cfg.amount.min, step: cfg.amount.step
+    }), "amount"));
+
+    var fixed = el("p", "calc-note", (cfg.fixed || []).join(" · "));
+    wrap.appendChild(grid);
+    wrap.appendChild(fixed);
+    wrap.appendChild(result);
+
+    function exactRow(selected) {
+      return cfg.rows.filter(function (row) {
+        return cfg.fields.every(function (f) {
+          return String(row.values[f.id]) === String(selected[f.id]);
+        });
+      })[0];
+    }
+    function compute() {
+      var inputs = getInputs(grid);
+      var selected = {};
+      cfg.fields.forEach(function (f) { selected[f.id] = inputs[f.id]; });
+      var row = exactRow(selected);
+      var value = null;
+      var label = "Published sample";
+      var detail = "";
+      if (row && row.value !== null && row.value !== undefined) {
+        value = row.value;
+      } else if (cfg.fields.some(function (f) { return f.id === "age"; })) {
+        var age = Number(inputs.age);
+        var nonAge = cfg.fields.filter(function (f) { return f.id !== "age"; });
+        var candidates = cfg.rows.filter(function (r) {
+          return r.value !== null && r.value !== undefined &&
+            nonAge.every(function (f) { return String(r.values[f.id]) === String(selected[f.id]); });
+        }).map(function (r) {
+          return { age: Number(r.values.age), value: r.value };
+        }).filter(function (r) { return isFinite(r.age); }).sort(function (a, b) { return a.age - b.age; });
+        var lower = null;
+        var upper = null;
+        candidates.forEach(function (c) {
+          if (c.age <= age) lower = c;
+          if (c.age >= age && !upper) upper = c;
+        });
+        if (lower && upper && lower.age <= age && age <= upper.age) {
+          if (lower.age === upper.age) {
+            value = lower.value;
+          } else {
+            value = lower.value + (upper.value - lower.value) * (age - lower.age) / (upper.age - lower.age);
+            label = "Interpolated estimate";
+            detail = "Interpolated between published ages " + lower.age + " and " + upper.age + ".";
+          }
+        }
+      }
+      result.replaceChildren();
+      if (value === null || value === undefined) {
+        var ages = cfg.rows.map(function (r) { return Number(r.values.age); }).filter(function (a) { return isFinite(a); });
+        var range = ages.length ? " Published ages: " + Math.min.apply(null, ages) + "–" + Math.max.apply(null, ages) + "." : "";
+        result.appendChild(el("p", "calc-error", "This combination is not published in the sample table." + range));
+        return;
+      }
+      var amount = num(inputs.amount, cfg.amount.default);
+      var premium = value * amount / cfg.base;
+      var headline = el("div", "calc-headline");
+      headline.appendChild(el("span", "calc-headline-label", cfg.premiumType));
+      headline.appendChild(el("strong", "", inr(premium)));
+      result.appendChild(headline);
+      result.appendChild(el("p", "calc-small", label + (detail ? " — " + detail : "")));
+      result.appendChild(el("p", "calc-small", "Published rate " + inr(value) + " per " + inr(cfg.base) +
+        " × (" + inr(amount) + " ÷ " + inr(cfg.base) + ")."));
+      result.appendChild(el("p", "calc-note", cfg.note));
+      result.appendChild(el("p", "calc-warning", "This is a published sample, not a quotation. Rebates, taxes, underwriting loadings and rider premiums are excluded. Use LIC's official calculator for an exact premium."));
+    }
+    grid.addEventListener("input", compute);
+    grid.addEventListener("change", compute);
+    compute();
+    return wrap;
+  }
+
   /* ---------------- GSV calculators ---------------- */
   function gsvResult(result, title, value, rows, note) {
     result.replaceChildren();
@@ -342,12 +442,94 @@
       grid.appendChild(markControl(checkboxField("Within one year of vesting", false), "withinVesting"));
       grid.appendChild(markControl(checkboxField("After the deferment period", false), "afterDeferment"));
       grid.appendChild(markControl(checkboxField("Early-return option (3–7)", false), "earlyRopOption"));
+    } else if (cfg.engine === "gsv_term_matrix") {
+      add("premium", "Annualized premium (₹)", cfg.defaultPremium, { min: 1000, step: 1000 });
+      grid.appendChild(markControl(selectField("Policy term", cfg.terms.map(function (t) { return { value: t, label: t + " years" }; }), cfg.defaultTerm), "term"));
+      add("year", "Policy year of surrender", cfg.defaultYear, { min: 1, max: Math.max.apply(null, cfg.terms), step: 1 });
+    } else if (cfg.engine === "gsv_term_matrix_ga") {
+      add("premium", "Annualized premium (₹)", cfg.defaultPremium, { min: 1000, step: 1000 });
+      add("bsa", "Basic Sum Assured (₹)", cfg.defaultBsa, { min: 100000, step: 10000 });
+      grid.appendChild(markControl(selectField("Policy term", cfg.terms.map(function (t) { return { value: t, label: t + " years" }; }), cfg.defaultTerm), "term"));
+      add("year", "Policy year of surrender", cfg.defaultYear, { min: 1, max: Math.max.apply(null, cfg.terms), step: 1 });
+    } else if (cfg.engine === "gsv_term_matrix_ga_channel") {
+      add("premium", "Annualized premium (₹)", cfg.defaultPremium, { min: 1000, step: 1000 });
+      add("bsa", "Basic Sum Assured (₹)", cfg.defaultBsa, { min: 100000, step: 10000 });
+      grid.appendChild(markControl(selectField("Policy term", cfg.terms.map(function (t) { return { value: t, label: t + " years" }; }), cfg.defaultTerm), "term"));
+      add("year", "Policy year of surrender", cfg.defaultYear, { min: 1, max: Math.max.apply(null, cfg.terms), step: 1 });
+      grid.appendChild(markControl(selectField("Purchase channel", [
+        { value: "offline", label: "Offline / agent" },
+        { value: "online", label: "Online direct" }
+      ], "offline"), "channel"));
+    } else if (cfg.engine === "gsv_single_term_matrix") {
+      add("premium", "Single premium (₹)", cfg.defaultPremium, { min: 10000, step: 1000 });
+      add("bsa", "Basic Sum Assured (₹)", cfg.defaultBsa, { min: 100000, step: 10000 });
+      grid.appendChild(markControl(selectField("Policy term", cfg.terms.map(function (t) { return { value: t, label: t + " years" }; }), cfg.defaultTerm), "term"));
+      add("year", "Policy year of surrender", cfg.defaultYear, { min: 1, max: Math.max.apply(null, cfg.terms), step: 1 });
     }
 
     function compute() {
       var inputs = getInputs(grid);
       var year = Math.max(1, Math.round(inputs.year || 1));
-      if (cfg.engine === "gsv_full_life") {
+      var term = Math.round(inputs.term || cfg.defaultTerm || 0);
+      function yearTooLong() {
+        result.replaceChildren();
+        result.appendChild(el("p", "calc-error", "Policy year cannot exceed the policy term."));
+      }
+      if (cfg.engine === "gsv_term_matrix") {
+        if (year > term) return yearTooLong();
+        var paid = Math.min(year, term);
+        var totalP = (inputs.premium || 0) * paid;
+        var f1 = matrixFactor(cfg.factors, term, year);
+        gsvResult(result, "Guaranteed Surrender Value", totalP * f1, [
+          ["Premiums paid", inr(totalP)],
+          ["Policy term", term + " years"],
+          ["GSV factor", pct(f1)]
+        ], "GSV = total premiums paid × the published factor for the policy term and surrender year. Premiums exclude taxes, extra premiums and rider premiums. Loyalty additions are considered only in the SSV.");
+      } else if (cfg.engine === "gsv_term_matrix_ga") {
+        if (year > term) return yearTooLong();
+        var paid2 = Math.min(year, term);
+        var totalP2 = (inputs.premium || 0) * paid2;
+        var ga2 = cfg.gaPerThousand * (inputs.bsa / 1000) * paid2;
+        var f2 = matrixFactor(cfg.factors, term, year);
+        var gaf2 = matrixFactor(cfg.gaFactors, term, year);
+        gsvResult(result, "Guaranteed Surrender Value", totalP2 * f2 + ga2 * gaf2, [
+          ["Premiums paid", inr(totalP2)],
+          ["Premium GSV factor", pct(f2)],
+          ["Accrued guaranteed additions", inr(ga2)],
+          ["GA GSV factor", pct(gaf2)]
+        ], "GSV = total premiums paid × premium GSV factor + accrued Guaranteed Additions × GA GSV factor. Premiums exclude taxes, extra premiums and rider premiums.");
+      } else if (cfg.engine === "gsv_term_matrix_ga_channel") {
+        if (year > term) return yearTooLong();
+        var paid3 = Math.min(year, term);
+        var totalP3 = (inputs.premium || 0) * paid3;
+        var gaRate = cfg.gaBaseRate + (inputs.bsa >= 200000 ? cfg.gaHighBsa : 0) + (inputs.channel === "online" ? cfg.gaOnline : 0);
+        // Jan Suraksha adds GA on cumulative annualized premiums paid to date;
+        // the published illustration uses a one-year lag (years 1..paid-1).
+        var gaUnits = paid3 * (paid3 - 1) / 2;
+        var ga3 = gaRate * (inputs.premium || 0) * gaUnits;
+        var f3 = matrixFactor(cfg.factors, term, year);
+        var gaf3 = matrixFactor(cfg.gaFactors, term, year);
+        gsvResult(result, "Guaranteed Surrender Value", totalP3 * f3 + ga3 * gaf3, [
+          ["Premiums paid", inr(totalP3)],
+          ["Premium GSV factor", pct(f3)],
+          ["Guaranteed addition rate", pct(gaRate)],
+          ["Accrued guaranteed additions", inr(ga3)],
+          ["GA GSV factor", pct(gaf3)]
+        ], "GSV = total premiums paid × premium GSV factor + accrued Guaranteed Additions × GA GSV factor. GA accrues on cumulative annualized premiums with the published one-year lag; the rate includes high-BSA and online incentives where applicable.");
+      } else if (cfg.engine === "gsv_single_term_matrix") {
+        if (year > term) return yearTooLong();
+        var paid4 = Math.min(year, term);
+        var premiumFactor = year <= 3 ? 0.75 : 0.90;
+        var premiumBase = (inputs.premium || 0) * premiumFactor;
+        var ga4 = cfg.gaPerThousand * (inputs.bsa / 1000) * paid4;
+        var gaf4 = matrixFactor(cfg.gaFactors, term, year);
+        gsvResult(result, "Guaranteed Surrender Value", premiumBase + ga4 * gaf4, [
+          ["GSV on single premium", inr(premiumBase)],
+          ["Premium GSV factor", pct(premiumFactor)],
+          ["Accrued guaranteed additions", inr(ga4)],
+          ["GA GSV factor", pct(gaf4)]
+        ], "GSV = 75% of the single premium in policy years 1–3 or 90% thereafter, plus accrued Guaranteed Additions × the published GA GSV factor.");
+      } else if (cfg.engine === "gsv_full_life") {
         var factor = factorAt(cfg.factors, year);
         var gaFactor = factorAt(cfg.gaFactors, year);
         var paidYears = Math.min(year, inputs.ppt || 1);
@@ -649,6 +831,58 @@
     return wrap;
   }
 
+  /* ---------------- annuity illustration ---------------- */
+  function renderAnnuity(tab) {
+    var cfg = tab.config;
+    var wrap = el("div", "calc-body");
+    var grid = el("div", "calc-grid");
+    var result = el("div", "calc-result");
+    wrap.appendChild(el("p", "calc-intro", "Look up the published sample annual annuity and scale it by purchase price. This is an illustration, not a quote."));
+
+    var options = cfg.rows.map(function (row) {
+      var value = row.values.option;
+      return { value: value, label: (cfg.optionLabels && cfg.optionLabels[value]) || value };
+    });
+    grid.appendChild(markControl(selectField(cfg.optionLabel, options, cfg.defaultOption), "option"));
+    grid.appendChild(markControl(numberField("Purchase price (₹)", cfg.defaultPurchase, { min: 50000, step: 10000 }), "purchase"));
+    wrap.appendChild(grid);
+    wrap.appendChild(result);
+
+    function compute() {
+      var inputs = getInputs(grid);
+      var row = cfg.rows.filter(function (r) { return String(r.values.option) === String(inputs.option); })[0];
+      result.replaceChildren();
+      if (!row) {
+        result.appendChild(el("p", "calc-error", "No published illustration for this option."));
+        return;
+      }
+      var purchase = inputs.purchase || 0;
+      var annuity = row.value * purchase / cfg.base;
+      var headline = el("div", "calc-headline");
+      headline.appendChild(el("span", "calc-headline-label", "Sample annual annuity"));
+      headline.appendChild(el("strong", "", inr(annuity)));
+      result.appendChild(headline);
+      var cards = el("div", "calc-cards");
+      function card(label, value, small) {
+        var box = el("div", "calc-card");
+        box.appendChild(el("span", "calc-card-label", label));
+        box.appendChild(el("strong", "", value));
+        if (small) box.appendChild(el("span", "calc-card-small", small));
+        cards.appendChild(box);
+      }
+      card("Purchase price", inr(purchase));
+      card("Approx. monthly annuity", inr(annuity / 12), "annual annuity ÷ 12");
+      card("Indicative payout rate", (purchase ? (annuity / purchase * 100).toFixed(2) : "—") + "%", "annual annuity ÷ purchase price");
+      result.appendChild(cards);
+      result.appendChild(el("p", "calc-note", cfg.note));
+      result.appendChild(el("p", "calc-warning", "Published illustration only. Actual annuity depends on age, option, mode, purchase-price incentives and prevailing rates. LIC quotes the exact annuity."));
+    }
+    grid.addEventListener("input", compute);
+    grid.addEventListener("change", compute);
+    compute();
+    return wrap;
+  }
+
   /* ---------------- shell ---------------- */
   var tabs = CFG.tabs || [];
   if (!tabs.length) return;
@@ -664,9 +898,15 @@
     });
     panel.replaceChildren();
     var tab = tabs[index];
-    if (tab.type === "premium") panel.appendChild(renderPremium(tab));
-    else if (tab.type === "gsv") panel.appendChild(renderGsv(tab));
-    else if (tab.type === "ulip") panel.appendChild(renderUlip(tab));
+    if (tab.type === "premium") {
+      panel.appendChild(tab.config.engine === "premium_rows" ? renderPremiumRows(tab) : renderPremium(tab));
+    } else if (tab.type === "gsv") {
+      panel.appendChild(renderGsv(tab));
+    } else if (tab.type === "ulip") {
+      panel.appendChild(renderUlip(tab));
+    } else if (tab.type === "annuity") {
+      panel.appendChild(renderAnnuity(tab));
+    }
   }
 
   tabs.forEach(function (tab, i) {

@@ -35,10 +35,21 @@
     <p class="plan-summary">A simple non-participating pure term plan for ages 18-65 with ₹5-25 lakh of death cover, terms of 5-40 years, a 45-day waiting period for non-accidental death, and no riders.</p>
     
     <div class="hero-actions">
-      
+      <a class="btn ghost" href="#calculator">Open calculator</a>
       <a class="btn primary" href="https://d2conline.licindia.in/eSales/liconline/setprop?plan=859" target="_blank" rel="noopener noreferrer">Buy on LIC</a>
       <a class="btn ghost" href="../../index.html">Back to search</a>
     </div>
+  </section>
+
+  <section class="calc-section" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <div>
+        <h2 id="calc-title">Calculators</h2>
+        <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
+      </div>
+      <span class="calc-badge">Phase 1 + 2</span>
+    </div>
+    <div id="plan-calculator"></div>
   </section>
 
   <article class="plan-content cat-Term">
@@ -514,6 +525,7 @@ Policy Cancellation Value (Regular) = 0
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-
+<script>window.PLAN_CALC = {"tabs":[{"id":"premium","type":"premium","title":"Premium lookup","config":{"engine":"premium_rows","fields":[{"id":"age","label":"Age at entry","type":"number","default":30,"min":25,"max":45,"step":1},{"id":"channel","label":"Channel","type":"select","default":"offline","options":[{"value":"offline","label":"Offline"},{"value":"online","label":"Online"}]},{"id":"payment","label":"Payment frequency","type":"select","default":"Regular annual","options":[{"value":"Single","label":"Single premium"},{"value":"Regular annual","label":"Regular annual"},{"value":"Half-yearly","label":"Half-yearly"},{"value":"Monthly","label":"Monthly"}]}],"amount":{"label":"Basic Sum Assured (₹)","default":1000000,"min":1000,"step":1000},"base":1000000,"rows":[{"values":{"age":25,"channel":"offline","payment":"Single"},"value":41610},{"values":{"age":25,"channel":"offline","payment":"Regular annual"},"value":3850},{"values":{"age":25,"channel":"offline","payment":"Half-yearly"},"value":1965},{"values":{"age":25,"channel":"offline","payment":"Monthly"},"value":331},{"values":{"age":30,"channel":"offline","payment":"Single"},"value":52260},{"values":{"age":30,"channel":"offline","payment":"Regular annual"},"value":4670},{"values":{"age":30,"channel":"offline","payment":"Half-yearly"},"value":2383},{"values":{"age":30,"channel":"offline","payment":"Monthly"},"value":401},{"values":{"age":35,"channel":"offline","payment":"Single"},"value":70840},{"values":{"age":35,"channel":"offline","payment":"Regular annual"},"value":6110},{"values":{"age":35,"channel":"offline","payment":"Half-yearly"},"value":3117},{"values":{"age":35,"channel":"offline","payment":"Monthly"},"value":525},{"values":{"age":40,"channel":"offline","payment":"Single"},"value":98630},{"values":{"age":40,"channel":"offline","payment":"Regular annual"},"value":8340},{"values":{"age":40,"channel":"offline","payment":"Half-yearly"},"value":4254},{"values":{"age":40,"channel":"offline","payment":"Monthly"},"value":716},{"values":{"age":45,"channel":"offline","payment":"Single"},"value":138230},{"values":{"age":45,"channel":"offline","payment":"Regular annual"},"value":11660},{"values":{"age":45,"channel":"offline","payment":"Half-yearly"},"value":5948},{"values":{"age":45,"channel":"offline","payment":"Monthly"},"value":1001},{"values":{"age":25,"channel":"online","payment":"Single"},"value":40776},{"values":{"age":25,"channel":"online","payment":"Regular annual"},"value":3574},{"values":{"age":25,"channel":"online","payment":"Half-yearly"},"value":1826},{"values":{"age":25,"channel":"online","payment":"Monthly"},"value":308},{"values":{"age":30,"channel":"online","payment":"Single"},"value":51213},{"values":{"age":30,"channel":"online","payment":"Regular annual"},"value":4336},{"values":{"age":30,"channel":"online","payment":"Half-yearly"},"value":2216},{"values":{"age":30,"channel":"online","payment":"Monthly"},"value":373},{"values":{"age":35,"channel":"online","payment":"Single"},"value":69421},{"values":{"age":35,"channel":"online","payment":"Regular annual"},"value":5675},{"values":{"age":35,"channel":"online","payment":"Half-yearly"},"value":2900},{"values":{"age":35,"channel":"online","payment":"Monthly"},"value":488},{"values":{"age":40,"channel":"online","payment":"Single"},"value":96655},{"values":{"age":40,"channel":"online","payment":"Regular annual"},"value":7749},{"values":{"age":40,"channel":"online","payment":"Half-yearly"},"value":3959},{"values":{"age":40,"channel":"online","payment":"Monthly"},"value":667},{"values":{"age":45,"channel":"online","payment":"Single"},"value":135463},{"values":{"age":45,"channel":"online","payment":"Regular annual"},"value":10837},{"values":{"age":45,"channel":"online","payment":"Half-yearly"},"value":5536},{"values":{"age":45,"channel":"online","payment":"Monthly"},"value":932}],"premiumType":"Published premium","fixed":["Policy term 25 years","Standard lives","Excludes taxes"],"note":"Published sample premium for BSA ₹10,00,000 and a 25-year term. The brochure also has a separate BSA ₹5,00,000 / 20-year sample table, not shown here."}}]};</script>
+<script src="../../assets/calculator.js"></script>
 </body>
 </html>

@@ -35,10 +35,21 @@
     <p class="plan-summary">An online-only, non-participating credit-life term plan whose death cover starts at the Basic Sum Assured and reduces each year on a schedule tied to a chosen loan interest rate, designed to protect a borrower&#x27;s family against loan repayment.</p>
     
     <div class="hero-actions">
-      
+      <a class="btn ghost" href="#calculator">Open calculator</a>
       <a class="btn primary" href="https://d2conline.licindia.in/eSales/liconline/setprop?plan=878" target="_blank" rel="noopener noreferrer">Buy on LIC</a>
       <a class="btn ghost" href="../../index.html">Back to search</a>
     </div>
+  </section>
+
+  <section class="calc-section" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <div>
+        <h2 id="calc-title">Calculators</h2>
+        <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
+      </div>
+      <span class="calc-badge">Phase 1 + 2</span>
+    </div>
+    <div id="plan-calculator"></div>
   </section>
 
   <article class="plan-content cat-Term">
@@ -521,6 +532,7 @@ URV              = per Policy Document Part D Condition 4
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-
+<script>window.PLAN_CALC = {"tabs":[{"id":"premium","type":"premium","title":"Premium lookup","config":{"engine":"premium_rows","fields":[{"id":"age","label":"Age at entry","type":"number","default":30,"min":20,"max":40,"step":1},{"id":"pptType","label":"Premium paying term","type":"select","default":"limited_ppt_10","options":[{"value":"single","label":"Single premium"},{"value":"limited_ppt_15","label":"Limited PPT 15"},{"value":"limited_ppt_10","label":"Limited PPT 10"},{"value":"limited_ppt_5","label":"Limited PPT 5"}]}],"amount":{"label":"Basic Sum Assured (₹)","default":5000000,"min":1000,"step":1000},"base":5000000,"rows":[{"values":{"age":20,"pptType":"single"},"value":34550},{"values":{"age":20,"pptType":"limited_ppt_15"},"value":3800},{"values":{"age":20,"pptType":"limited_ppt_10"},"value":4800},{"values":{"age":20,"pptType":"limited_ppt_5"},"value":8050},{"values":{"age":30,"pptType":"single"},"value":45500},{"values":{"age":30,"pptType":"limited_ppt_15"},"value":4900},{"values":{"age":30,"pptType":"limited_ppt_10"},"value":6250},{"values":{"age":30,"pptType":"limited_ppt_5"},"value":10500},{"values":{"age":40,"pptType":"single"},"value":88750},{"values":{"age":40,"pptType":"limited_ppt_15"},"value":9250},{"values":{"age":40,"pptType":"limited_ppt_10"},"value":11900},{"values":{"age":40,"pptType":"limited_ppt_5"},"value":20300}],"premiumType":"Yearly premium / single premium","fixed":["Policy term 25 years","Loan interest rate 8%","Non-smoker male standard life"],"note":"Published sample premium for Digi Credit Life, before rebates, taxes and rider premiums."}}]};</script>
+<script src="../../assets/calculator.js"></script>
 </body>
 </html>

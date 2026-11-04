@@ -35,10 +35,21 @@
     <p class="plan-summary">A single-premium joint-life endowment for a married couple that pays a guaranteed death benefit on the first death, continues for the surviving spouse, and returns the Basic Sum Assured plus guaranteed additions at maturity.</p>
     
     <div class="hero-actions">
-      
+      <a class="btn ghost" href="#calculator">Open calculator</a>
       <a class="btn primary" href="https://d2conline.licindia.in/eSales/liconline/setprop?plan=888" target="_blank" rel="noopener noreferrer">Buy on LIC</a>
       <a class="btn ghost" href="../../index.html">Back to search</a>
     </div>
+  </section>
+
+  <section class="calc-section" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <div>
+        <h2 id="calc-title">Calculators</h2>
+        <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
+      </div>
+      <span class="calc-badge">Phase 1 + 2</span>
+    </div>
+    <div id="plan-calculator"></div>
   </section>
 
   <article class="plan-content cat-Endowment">
@@ -328,6 +339,7 @@ Surrender value                  = max(GSV, SSV)
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-
+<script>window.PLAN_CALC = {"tabs":[{"id":"premium","type":"premium","title":"Premium lookup","config":{"engine":"premium_rows","fields":[{"id":"age","label":"Age at entry (both lives)","type":"number","default":35,"min":20,"max":50,"step":1},{"id":"option","label":"Death benefit option","type":"select","default":"I","options":[{"value":"I","label":"Option I"},{"value":"II","label":"Option II"}]},{"id":"term","label":"Policy term","type":"select","default":20,"options":[{"value":10,"label":"10 years"},{"value":15,"label":"15 years"},{"value":20,"label":"20 years"},{"value":25,"label":"25 years"}]}],"amount":{"label":"Basic Sum Assured (₹)","default":300000,"min":1000,"step":1000},"base":300000,"rows":[{"values":{"age":20,"option":"I","term":10},"value":297195},{"values":{"age":20,"option":"I","term":15},"value":269940},{"values":{"age":20,"option":"I","term":20},"value":238635},{"values":{"age":20,"option":"I","term":25},"value":208740},{"values":{"age":35,"option":"I","term":10},"value":302340},{"values":{"age":35,"option":"I","term":15},"value":279180},{"values":{"age":35,"option":"I","term":20},"value":252525},{"values":{"age":35,"option":"I","term":25},"value":227115},{"values":{"age":50,"option":"I","term":10},"value":346560},{"values":{"age":50,"option":"I","term":15},"value":345495},{"values":{"age":50,"option":"I","term":20},"value":336510},{"values":{"age":50,"option":"I","term":25},"value":323940},{"values":{"age":20,"option":"II","term":10},"value":356850},{"values":{"age":20,"option":"II","term":15},"value":348930},{"values":{"age":25,"option":"II","term":10},"value":361095},{"values":{"age":25,"option":"II","term":15},"value":362790},{"values":{"age":35,"option":"II","term":10},"value":427620},{"values":{"age":35,"option":"II","term":15},"value":536475}],"premiumType":"Single premium","fixed":["Both lives at the same age","Offline sale"],"note":"Published sample single premium for BSA ₹3,00,000, before rebates, taxes and rider premiums."}},{"id":"gsv","type":"gsv","title":"GSV estimate","config":{"engine":"gsv_single_term_matrix","gaFactors":{"10":{"1":0.18600000000000003,"2":0.1918,"3":0.1993,"4":0.20850000000000002,"5":0.21989999999999998,"6":0.23379999999999998,"7":0.2505,"8":0.2706,"9":0.3,"10":0.35},"15":{"1":0.17579999999999998,"2":0.17579999999999998,"3":0.1766,"4":0.17850000000000002,"5":0.1816,"6":0.18600000000000003,"7":0.1918,"8":0.1993,"9":0.20850000000000002,"10":0.21989999999999998,"11":0.23379999999999998,"12":0.2505,"13":0.2706,"14":0.3,"15":0.35},"20":{"1":0.1572,"2":0.1593,"3":0.16219999999999998,"4":0.16579999999999998,"5":0.1703,"6":0.17579999999999998,"7":0.17579999999999998,"8":0.1766,"9":0.17850000000000002,"10":0.1816,"11":0.18600000000000003,"12":0.1918,"13":0.1993,"14":0.20850000000000002,"15":0.21989999999999998,"16":0.23379999999999998,"17":0.2505,"18":0.2706,"19":0.3,"20":0.35},"25":{"1":0.1494,"2":0.15130000000000002,"3":0.1528,"4":0.1542,"5":0.1555,"6":0.1572,"7":0.1593,"8":0.16219999999999998,"9":0.16579999999999998,"10":0.1703,"11":0.17579999999999998,"12":0.17579999999999998,"13":0.1766,"14":0.17850000000000002,"15":0.1816,"16":0.18600000000000003,"17":0.1918,"18":0.1993,"19":0.20850000000000002,"20":0.21989999999999998,"21":0.23379999999999998,"22":0.2505,"23":0.2706,"24":0.3,"25":0.35}},"terms":[10,15,20,25],"defaultPremium":297195,"defaultBsa":300000,"defaultTerm":20,"defaultYear":10,"gaPerThousand":70}}]};</script>
+<script src="../../assets/calculator.js"></script>
 </body>
 </html>

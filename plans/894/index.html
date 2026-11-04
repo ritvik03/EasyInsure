@@ -35,10 +35,21 @@
     <p class="plan-summary">A non-participating pure term plan for ages 18-45 with ₹5-24 lakh of death cover, terms of 15-42 years ending by age 60, and Single, Regular or Limited premium options.</p>
     
     <div class="hero-actions">
-      
+      <a class="btn ghost" href="#calculator">Open calculator</a>
       <a class="btn primary" href="https://d2conline.licindia.in/eSales/liconline/setprop?plan=894" target="_blank" rel="noopener noreferrer">Buy on LIC</a>
       <a class="btn ghost" href="../../index.html">Back to search</a>
     </div>
+  </section>
+
+  <section class="calc-section" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-head">
+      <div>
+        <h2 id="calc-title">Calculators</h2>
+        <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
+      </div>
+      <span class="calc-badge">Phase 1 + 2</span>
+    </div>
+    <div id="plan-calculator"></div>
   </section>
 
   <article class="plan-content cat-Term">
@@ -454,6 +465,7 @@ URV              = per Policy Document Part D Condition 4
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-
+<script>window.PLAN_CALC = {"tabs":[{"id":"premium","type":"premium","title":"Premium lookup","config":{"engine":"premium_rows","fields":[{"id":"age","label":"Age at entry","type":"number","default":30,"min":20,"max":40,"step":1},{"id":"pptType","label":"Premium paying term","type":"select","default":"regular_annual","options":[{"value":"regular_annual","label":"Regular annual premium"},{"value":"limited_ppt_15","label":"Limited PPT 15"},{"value":"limited_ppt_10","label":"Limited PPT 10"},{"value":"single","label":"Single premium"}]}],"amount":{"label":"Basic Sum Assured (₹)","default":500000,"min":1000,"step":1000},"base":500000,"rows":[{"values":{"age":20,"pptType":"regular_annual"},"value":2290},{"values":{"age":20,"pptType":"limited_ppt_15"},"value":2555},{"values":{"age":20,"pptType":"limited_ppt_10"},"value":3150},{"values":{"age":20,"pptType":"single"},"value":19035},{"values":{"age":30,"pptType":"regular_annual"},"value":2730},{"values":{"age":30,"pptType":"limited_ppt_15"},"value":3070},{"values":{"age":30,"pptType":"limited_ppt_10"},"value":3825},{"values":{"age":30,"pptType":"single"},"value":23805},{"values":{"age":40,"pptType":"regular_annual"},"value":4435},{"values":{"age":40,"pptType":"limited_ppt_15"},"value":5035},{"values":{"age":40,"pptType":"limited_ppt_10"},"value":6390},{"values":{"age":40,"pptType":"single"},"value":41770}],"premiumType":"Yearly premium / single premium","fixed":["Policy term 20 years","Non-smoker male standard life"],"note":"Published sample premium for Jeevan Raksha, before rebates, taxes and rider premiums."}}]};</script>
+<script src="../../assets/calculator.js"></script>
 </body>
 </html>

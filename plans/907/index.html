@@ -47,7 +47,7 @@
         <h2 id="calc-title">Calculators</h2>
         <p class="calc-sub">Illustrative estimates from LIC's published sample tables and formulas. Not a quotation.</p>
       </div>
-      <span class="calc-badge">Phase 1</span>
+      <span class="calc-badge">Phase 1 + 2</span>
     </div>
     <div id="plan-calculator"></div>
   </section>
@@ -564,7 +564,7 @@ Total policy premium     = Σ member premiums − IDB rebates − 10% online reb
     <p class="disclaimer">Not financial or tax advice. LIC's policy document prevails. <a href="../README.md">Knowledge-base README</a> · <a href="../../index.html">Search all plans</a> · <a href="https://licindia.in" target="_blank" rel="noopener noreferrer">licindia.in</a></p>
   </div>
 </footer>
-<script>window.PLAN_CALC = {"tabs":[{"id":"premium","type":"premium","title":"Premium lookup","config":{"engine":"premium_table","kind":"age_sex","base":5000,"ages":[20,30,40,50,60],"sexes":["male","female"],"matrix":{"20":{"male":6555,"female":5556},"30":{"male":7195,"female":6883},"40":{"male":9446,"female":9509},"50":{"male":14895,"female":13209},"60":{"male":22350,"female":17341}},"baseLabel":"Initial Daily Benefit ₹5,000","premiumType":"Yearly premium (Principal Insured)","note":"Published sample yearly premium for the Principal Insured, before IDB rebates, online rebate, taxes and rider premiums."}}]};</script>
+<script>window.PLAN_CALC = {"tabs":[{"id":"premium","type":"premium","title":"Premium lookup","config":{"engine":"premium_rows","fields":[{"id":"age","label":"Age at entry","type":"number","default":20,"min":20,"max":60,"step":1},{"id":"sex","label":"Sex","type":"select","default":"male","options":[{"value":"male","label":"Male"},{"value":"female","label":"Female"}]}],"amount":{"label":"Initial Daily Benefit (₹)","default":5000,"min":1000,"step":1000},"base":5000,"rows":[{"values":{"age":20,"sex":"male"},"value":6555},{"values":{"age":20,"sex":"female"},"value":5556},{"values":{"age":30,"sex":"male"},"value":7195},{"values":{"age":30,"sex":"female"},"value":6883},{"values":{"age":40,"sex":"male"},"value":9446},{"values":{"age":40,"sex":"female"},"value":9509},{"values":{"age":50,"sex":"male"},"value":14895},{"values":{"age":50,"sex":"female"},"value":13209},{"values":{"age":60,"sex":"male"},"value":22350},{"values":{"age":60,"sex":"female"},"value":17341}],"premiumType":"Yearly premium (Principal Insured)","fixed":["Principal Insured","Offline sale"],"note":"Published sample yearly premium for the Principal Insured, before IDB rebates, online rebate, taxes and rider premiums."}}]};</script>
 <script src="../../assets/calculator.js"></script>
 </body>
 </html>
